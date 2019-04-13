@@ -7,7 +7,7 @@
 
  
 /* outcome:
-[beliu: ~/Desktop]$./a.out
+[beliu: ~/Desktop/data-structure]$./a.out
 6->5->8->2->NULL
 deleting 6
 5->8->2->NULL
@@ -15,6 +15,9 @@ deleting 8
 5->2->NULL
 deleting 2
 5->NULL
+deleting 5
+NULL
+NULL
 */
 
 
@@ -45,10 +48,15 @@ struct node* myLinkDel(struct node* head, int val)
    struct node *cur = head;
    if(head == NULL) return NULL;
    
-   if(head->value == val)  /// reason to introduce dummy is too avoid this corner case....
-   {                        /// seems that there is no way to get rid of both...? (dummy and this corner case)
+   // we can chose either of the following two ways:
+   // 1. introduce dummy head 
+   // 2. wirte corner case:head->val==val
+   if(head->value == val)  
+   {                        
+      struct node *next = head->next;
       printf("deleting %d\n", head->value);
-      return head->next;
+      free(head);
+      return next;
    }
 
    
